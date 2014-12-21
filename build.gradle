@@ -1,0 +1,80 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+ext {
+  // test dependencies
+  junitVersion = "4.11"
+   
+  // loggers
+  slf4jVersion = "1.7.2"
+  logbackVersion = "1.0.11"
+ 
+  // spring framework
+  springVersion = "3.2.4.RELEASE"
+ 
+  // other
+  guavaVersion = "14.0.1"
+}
+ 
+ext.defaultEncoding = 'UTF-8'
+ext.artifactId = 'spring_sample'
+version = '1.0'
+ 
+sourceCompatibility = targetCompatibility = 1.7
+tasks.withType(AbstractCompile) each {
+  it.options.encoding = ext.defaultEncoding
+}
+ 
+repositories {
+  mavenCentral()
+  maven {
+    url "http://repo.springsource.org/release"
+  }
+}
+ 
+dependencies {
+  // loggers
+  compile "org.slf4j:slf4j-api:$slf4jVersion"
+  compile "org.slf4j:jul-to-slf4j:$slf4jVersion"
+  compile "ch.qos.logback:logback-classic:$logbackVersion"
+ 
+  // spring framework
+  compile "org.springframework:spring-beans:$springVersion"
+  compile "org.springframework:spring-context:$springVersion"
+  compile "org.springframework:spring-context-support:$springVersion"
+ 
+  // others
+  compile "com.google.guava:guava:$guavaVersion"
+  compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+  testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+/*
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
+}
+*/
